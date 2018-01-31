@@ -4,7 +4,12 @@
   <form [formGroup]="contractForm">
     <div class="row">
       <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
-          <input type="text" class="form-control" name="Name" placeholder="Contract name" formControlName="name"/>
+          <input type="text" class="form-control" name="name" placeholder="Contract name" formControlName="name"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
+          <input type="number" class="form-control" name="months" placeholder="Months" formControlName="months"/>
       </div>
     </div>
     <div class="row">
@@ -13,6 +18,9 @@
       </div>
     </div>
   </form>
+
+
+
  <!-- //////////////////////////////////////////////////////// --> 
   <div class="row">
     <div class="col-xs-12 col-md-12">
@@ -24,6 +32,8 @@
 <input type="submit" (click)="addContract()" value="Add contract" [disabled]=isDisabled()/>
 
   <ul *ngFor="let contract of contractList | async">    
-    <li>{{ contract.rangeDt[0] | date:"MM/dd/yy"}} - {{ contract.rangeDt[1] | date:"MM/dd/yy"}} - {{ contract.name }}</li>
+    <li>{{ contract.rangeDt[0] | date:"dd/MM/yy"}} - {{ contract.rangeDt[1] | date:"dd/MM/yy"}}</li>
+    <li>{{ contract.name }}</li>
+    <li>{{ contract.months }}</li>
   </ul>
 </div> 

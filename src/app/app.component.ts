@@ -25,7 +25,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.contractForm = this.formBuilder.group({
-      name: '',
+      name: null,
+      months: 1,
       rangeDt: null
     });
   }
@@ -37,11 +38,18 @@ export class AppComponent implements OnInit {
   private addContract(): void {
     const newContract = new Contract(
       this.contractForm.controls['name'].value,
+      this.contractForm.controls['months'].value,
       this.contractForm.controls['rangeDt'].value);
 
-    this.contractCollection.add({name: newContract.name, rangeDt: newContract.rangeDt});
+    this.contractCollection.add({
+        name: newContract.name,
+        months: newContract.months,
+        rangeDt: newContract.rangeDt
+      }
+    );
 
     this.contractForm.controls['rangeDt'].setValue(null);
     this.contractForm.controls['name'].setValue(null);
+    this.contractForm.controls['months'].setValue(1);
   }
 }
