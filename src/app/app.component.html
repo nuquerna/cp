@@ -1,0 +1,29 @@
+<div class="container">
+  <alert type="success">{{ title }}</alert>
+
+  <form [formGroup]="contractForm">
+    <div class="row">
+      <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
+          <input type="text" class="form-control" name="Name" placeholder="Contract name" formControlName="name"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
+        <input type="text" class="form-control" placeholder="Daterangepicker" bsDaterangepicker formControlName="rangeDt" />
+      </div>
+    </div>
+  </form>
+ <!-- //////////////////////////////////////////////////////// --> 
+  <div class="row">
+    <div class="col-xs-12 col-md-12">
+      <pre class="code-preview">{{contractForm.value | json}}</pre>
+    </div>
+  </div>
+<!-- //////////////////////////////////////////////////////// -->
+
+<input type="submit" (click)="addContract()" value="Add contract" [disabled]=isDisabled()/>
+
+  <ul *ngFor="let contract of contractList | async">    
+    <li>{{ contract.rangeDt[0] | date:"MM/dd/yy"}} - {{ contract.rangeDt[1] | date:"MM/dd/yy"}} - {{ contract.name }}</li>
+  </ul>
+</div> 
