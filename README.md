@@ -1,5 +1,3 @@
 # CreditPlan
 
-check possibility to remote
-
-tyhfhfhfghfhfhgfh
+be sure about you credits

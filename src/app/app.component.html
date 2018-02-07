@@ -1,39 +1,67 @@
+<div *ngIf="afAuth.authState | async as user; else showLogin">
+  <h1>Hello {{ user.displayName }}!</h1>
+  <button (click)="logout()">Logout</button>
+</div>
+<ng-template #showLogin>
+  <p>Please login.</p>
+  <button (click)="login()">Login with Google</button>
+</ng-template>
+
 <div class="container">
   <alert type="success">{{ title }}</alert>
 
   <form [formGroup]="contractForm">
     <div class="row">
       <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
-          <input type="text" class="form-control" name="name" placeholder="Contract name" formControlName="name"/>
+        <input type="text" required class="form-control" name="name" placeholder="Contract name" formControlName="name" />
       </div>
     </div>
     <div class="row">
       <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
-          <input type="number" class="form-control" name="months" placeholder="Months" formControlName="months"/>
+        <input type="number" required class="form-control" name="months" placeholder="Months" formControlName="months" />
       </div>
     </div>
     <div class="row">
       <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
-        <input type="text" class="form-control" placeholder="Daterangepicker" bsDaterangepicker formControlName="rangeDt" />
+        <input type="text" required class="form-control" placeholder="Daterangepicker" bsDaterangepicker formControlName="rangeDt" />
       </div>
     </div>
+    <div class="row">
+      <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
+        <input type="text" required class="form-control" name="accountNo" placeholder="Account Number" formControlName="accountNo" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
+        <input type="number" required class="form-control" step="0.1" name="amount" placeholder="Whole Amount" formControlName="amount" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-12 col-sm-6 col-md-4 form-group">
+        <select formControlName="currency">
+          <option *ngFor="let item of listCurrency; index as i" value="{{ item}}">{{ item }}</option>
+        </select>
+      </div>
+    </div>
+
+    <input type="submit" (click)="addContract()" value="Add contract" [disabled]=isInvalid()/>
   </form>
 
-
-
- <!-- //////////////////////////////////////////////////////// --> 
+  <!-- //////////////////////////////////////////////////////// -->
   <div class="row">
     <div class="col-xs-12 col-md-12">
       <pre class="code-preview">{{contractForm.value | json}}</pre>
     </div>
   </div>
-<!-- //////////////////////////////////////////////////////// -->
+  <!-- //////////////////////////////////////////////////////// -->
 
-<input type="submit" (click)="addContract()" value="Add contract" [disabled]=isDisabled()/>
-
-  <ul *ngFor="let contract of contractList | async">    
+  <ul *ngFor="let contract of contractList | async">
     <li>{{ contract.rangeDt[0] | date:"dd/MM/yy"}} - {{ contract.rangeDt[1] | date:"dd/MM/yy"}}</li>
     <li>{{ contract.name }}</li>
     <li>{{ contract.months }}</li>
+    <li>{{ contract.accountNo }}</li>
+    <li>{{ contract.amount }}</li>
+    <li>{{ contract.currency }}</li>
   </ul>
-</div> 
+</div>
